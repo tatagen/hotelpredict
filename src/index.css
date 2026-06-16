@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Noto Sans JP", sans-serif;
+  --font-serif: "Inter", "Noto Sans JP", sans-serif;
+  --font-mono: "Inter", "Noto Sans JP", sans-serif;
+}
+
+body {
+  background-color: #F4F4F5;
+  color: #18181B;
+  font-family: var(--font-sans);
+}
+
+/* Custom minimal borders and styling corresponding to geometric balance theme */
+.quiet-card {
+  background-color: #ffffff;
+  border: 1px solid #E4E4E7;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.quiet-button {
+  background-color: #18181B;
+  color: #ffffff;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.quiet-button:hover {
+  background-color: #27272A;
+}
+
+.quiet-button-secondary {
+  background-color: #ffffff;
+  color: #27272A;
+  border: 1px solid #E4E4E7;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.quiet-button-secondary:hover {
+  background-color: #F4F4F5;
+  border-color: #D4D4D8;
+}
+
