@@ -1,20 +1,38 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 📊 ホテル宿泊価格 最適化システム
 
-# Run and deploy your AI Studio app
+A市内のホテル向け宿泊価格分析ツールです。周辺イベント・稼働率・競合ホテルのデータをもとに適正価格を算出し、3ヶ月先の価格変動を予測します。
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/fa87b6a7-c1fc-4aae-8e1e-5a28131f40b2
+## ✨ 主な機能
 
-## Run Locally
+- **価格比較・適正価格算出** — 稼働率・周辺ホテル相場・イベント需要を元に今日の適正価格を提示
+- **3ヶ月先の価格変動予測** — カレンダー形式で将来の需要変動と推奨価格を可視化
+- **イベントカレンダー連動** — 市民マラソン大会・温泉まつりなど地域イベントの需要影響を自動反映
+- **稼働率シミュレーション** — 稼働率スライダーを動かすと価格・予測がリアルタイムで変化
 
-**Prerequisites:**  Node.js
+## 🛠️ 技術スタック
 
+| 分類 | 技術 |
+|------|------|
+| フロントエンド | React 19 / TypeScript |
+| スタイリング | Tailwind CSS 4 |
+| AI | Google Gemini API |
+| サーバー | Express |
+| ビルド | Vite 6 + esbuild |
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🚀 ローカル実行
+
+```bash
+git clone https://github.com/tatagen/hotelpredict.git
+cd hotelpredict
+npm install
+# .env.local に GEMINI_API_KEY を記入
+npm run dev
+```
+
+> `GEMINI_API_KEY` の設定が必要です（[Google AI Studio](https://aistudio.google.com/) で無料取得できます）。
+
+---
+
+*温泉エリアのホテル「サンプルホテル」向けに開発しました。*
