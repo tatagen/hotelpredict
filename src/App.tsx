@@ -29,7 +29,7 @@ export default function App() {
 
   // Fetch constants on launch
   useEffect(() => {
-    fetch('/api/local-constants')
+    fetch('/api/local area-constants')
       .then(res => res.json())
       .then(data => {
         if (data && data.events) {
@@ -38,34 +38,34 @@ export default function App() {
       })
       .catch(err => {
         console.error("Error fetching constants:", err);
-        // Fallback robust Sample City Event List for resilience
+        // Fallback robust local event list for resilience
         setAllEvents([
           {
             id: "ev_1",
             title: "市民マラソン大会 (City Marathon)",
             date: "2026-02-08",
             category: "sports",
-            description: "約1万人のランナーが全国からA市に集結する一大スポーツイベント。周辺ホテルは早期から満室になります。",
+            description: "地域を代表する大規模マラソンイベント。周辺ホテルは早期から満室になります。",
             impactLevel: "high",
             impactPercentage: 45,
             location: "市役所前・中央公園ほか"
           },
           {
             id: "ev_2",
-            title: "温泉まつり (Onsen Festival)",
+            title: "地域温泉まつり",
             date: "2026-03-19",
             category: "festival",
-            description: "湯祈祷や神輿、餅まきなどが行われる春の呼声。温泉街周辺およびA市内の宿泊需要が大幅に増加します。",
+            description: "湯祈祷や神輿、餅まきなどが行われる春の祭事。周辺の宿泊需要が大幅に増加します。",
             impactLevel: "medium",
             impactPercentage: 20,
             location: "温泉周辺"
           },
           {
             id: "ev_3",
-            title: "春まつり（お城まつり）",
+            title: "地域春まつり",
             date: "2026-04-04",
             category: "festival",
-            description: "城跡周辺で行われる大名武者行列など、春の桜シーズンと合わせた観光のピーク期。",
+            description: "地域を代表する春まつり。桜シーズンと合わせた観光のピーク期。",
             impactLevel: "high",
             impactPercentage: 25,
             location: "城跡・中央公園周辺"
@@ -78,7 +78,7 @@ export default function App() {
             description: "大型連休による全国的なレジャー観光旅行増。家族連れやカップルの長期滞在が並びます。",
             impactLevel: "high",
             impactPercentage: 35,
-            location: "A市内全域"
+            location: "市内内全域"
           },
           {
             id: "ev_5",
@@ -118,7 +118,7 @@ export default function App() {
             description: "帰省客や年末年始観光客による高価格帯での満室想定。",
             impactLevel: "high",
             impactPercentage: 40,
-            location: "A市周辺"
+            location: "市内周辺"
           }
         ]);
       });
@@ -155,7 +155,7 @@ export default function App() {
             <div className="flex items-center gap-4">
               <div className="text-right hidden md:block">
                 <div className="text-xs font-medium text-gray-750">{getTodayFormattedJP()}</div>
-                <div className="text-[9px] text-[#A1A1AA]">A市中心部</div>
+                <div className="text-[9px] text-[#A1A1AA]">A県市内中心部14-12</div>
               </div>
             </div>
 
@@ -225,12 +225,12 @@ export default function App() {
       <footer className="bg-white border-t border-[#E4E4E7] py-6 text-center text-[11px] text-[#71717A]">
         <div className="max-w-7xl mx-auto px-4 space-y-2">
           <p className="font-medium text-[#27272A]" id="app-footer-brand">
-            A市ホテル価格最適化システム — サンプルホテル（A市中心部）専用システム
+            市内ホテル価格最適化システム — サンプルホテル（A県市内中心部１４−１２）専用システム
           </p>
           <div className="flex justify-center gap-4 text-[#A1A1AA]">
             <span>基準指標値: 通常(平時)時からの変動・乖離率(%)</span>
             <span>|</span>
-            <span>周辺調査範囲: A市内 主要ウィークリー・マンスリー・アパートメントホテル10軒</span>
+            <span>周辺調査範囲: 市内内 主要ウィークリー・マンスリー・アパートメントホテル10軒</span>
             <span>|</span>
             <span>データ集約: じゃらん / 楽天トラベル</span>
           </div>
