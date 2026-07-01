@@ -28,10 +28,10 @@ export default function ForecastSection({ startDate, occupancy, onSelectDate }: 
     setCrawlLogs([]);
 
     const logSteps = [
-      "主要駅前・中心商店街エリアのポータルサーバーに接続確立中...",
+      "市内エリアのポータルサーバーに接続確立中...",
       "ネット上から周辺名産ホテルの最新相場を読み取り中...",
-      "A市歳時記イベント需要ブレンド査定中...",
-      "A市場適応価格・需要推論エンジンとの結合に成功..."
+      "地域イベント需要ブレンド査定中...",
+      "市場適応価格・需要推論エンジンとの結合に成功..."
     ];
 
     const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
@@ -226,7 +226,7 @@ export default function ForecastSection({ startDate, occupancy, onSelectDate }: 
             ３ヶ月先（将来90日間）の客室価格・変動％リアルタイム予測
           </h3>
           <p className="text-xs text-[#71717A] mt-0.5">
-            じゃらん・楽天トラベル将来公開データ、週次周期、およびA市の歳時記イベントを統合したインテリジェント収益シミュレーション
+            じゃらん・楽天トラベル将来公開データ、週次周期、および地域イベントを統合したインテリジェント収益シミュレーション
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
