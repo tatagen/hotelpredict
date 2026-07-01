@@ -93,7 +93,7 @@ export default function EventCalendar({ onSelectDate, allEvents }: EventCalendar
         {/* Calendar Nav Header */}
         <div className="flex justify-between items-center pb-4 border-b border-[#E4E4E7]">
           <div>
-            <span className="text-[10px] text-[#71717A] font-mono tracking-widest uppercase block">A県A市・中心商店街周辺エリア</span>
+            <span className="text-[10px] text-[#71717A] font-mono tracking-widest uppercase block">周辺エリア</span>
             <h3 className="text-sm font-bold text-[#18181B] flex items-center gap-2 mt-0.5">
               <Calendar className="w-4 h-4 text-[#71717A]" />
               周辺イベントカレンダー (連携済み)
@@ -191,7 +191,7 @@ export default function EventCalendar({ onSelectDate, allEvents }: EventCalendar
       {/* Specific local details card list */}
       <div className="quiet-card bg-white p-5 border-[#E4E4E7]">
         <h4 className="text-sm font-bold text-[#18181B] border-[#E4E4E7] border-b pb-3 mb-4">
-          A県A市：代表的なイベント一覧（価格補正トリガー）
+          周辺エリア：代表的なイベント一覧（価格補正トリガー）
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {allEvents.map((ev) => (
