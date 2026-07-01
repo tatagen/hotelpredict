@@ -3,11 +3,11 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
-import { Competitor, LocalEvent, DateAnalysisResponse, ForecastItem, Recommendation } from "./src/types.js";
+import { Competitor, 市内Event, DateAnalysisResponse, ForecastItem, Recommendation } from "./src/types.js";
 
 dotenv.config();
 
-// Competitor list representing long-term/weekly/monthly stay options and condominiums in Sample City
+// Competitor list representing local long-term/weekly/monthly stay options
 const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
   {
     id: "comp_1",
@@ -27,11 +27,11 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
     currentPrice: 5000,
     source: "both",
     rating: 4.4,
-    roomType: "和風モダン客室 (市街近郊・完全個室アパートメントスタイル)"
+    roomType: "和風モダン客室 (市街近郊・完全個室アパートメントスタイル\)"
   },
   {
     id: "comp_3",
-    name: "Competitor Hotel C (競合ホテルC)",
+    name: "競合ホテルC",
     distance: "約 0.6km",
     basePrice: 8500,
     currentPrice: 8500,
@@ -47,7 +47,7 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
     currentPrice: 4200,
     source: "both",
     rating: 4.3,
-    roomType: "純木造和風個室 (温泉街中心・趣ある古民家スタイル)"
+    roomType: "純木造和風個室 (温泉エリア・趣ある古民家スタイル\)"
   },
   {
     id: "comp_5",
@@ -57,7 +57,7 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
     currentPrice: 4800,
     source: "both",
     rating: 4.4,
-    roomType: "和室スタンダード (温泉本館そば・アットホーム温和空間)"
+    roomType: "和室スタンダード (温泉エリア・アットホーム温和空間\)"
   },
   {
     id: "comp_6",
@@ -81,7 +81,7 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
   },
   {
     id: "comp_8",
-    name: "競合ホテルH (Competitor Hotel H)",
+    name: "競合ホテルE",
     distance: "約 0.7km",
     basePrice: 6500,
     currentPrice: 6500,
@@ -97,11 +97,11 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
     currentPrice: 5500,
     source: "both",
     rating: 4.1,
-    roomType: "エコノミーシングル (郊外温泉地源泉引き湯の天然温泉大浴場)"
+    roomType: "エコノミーシングル (源泉引き湯の天然温泉大浴場\)"
   },
   {
     id: "comp_10",
-    name: "競合ホテルJ",
+    name: "競合ホテルF",
     distance: "約 1.3km",
     basePrice: 5800,
     currentPrice: 5800,
@@ -111,7 +111,7 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
   },
   {
     id: "comp_11",
-    name: "競合ホテルK (Competitor Hotel K)",
+    name: "競合ホテルG",
     distance: "約 3.4km",
     basePrice: 3600,
     currentPrice: 3600,
@@ -121,13 +121,13 @@ const COMPETITORS: Omit<Competitor, 'deviationPercent'>[] = [
   },
   {
     id: "comp_12",
-    name: "競合ホテルL",
+    name: "競合ホテルH",
     distance: "約 0.8km",
     basePrice: 9200,
     currentPrice: 9200,
     source: "both",
     rating: 4.6,
-    roomType: "シャワーブースダブル (主要駅直結・天然温泉大浴場)"
+    roomType: "シャワーブースダブル (市内駅直結・大浴場\)"
   }
 ];
 
@@ -154,15 +154,15 @@ let livePricesOverride: Record<string, { price: number; source: string; confiden
 let livePricesLastUpdated: string | null = "2026/06/12 17:30 (JST) (Gemini直接リサーチ・同期完了)";
 let lastUsedSearchSources: { title: string; uri: string }[] = [
   { 
-    title: "じゃらんnet - A市・温泉街のホテル・ビジネスホテル一覧", 
+    title: "じゃらんnet - 周辺ホテル・ビジネスホテル一覧", 
     uri: "https://www.jalan.net/380000/rg_380200/" 
   },
   { 
-    title: "楽天トラベル - A市・温泉街エリア 空室・宿泊情報", 
-    uri: "https://travel.rakuten.co.jp/yado/ehime/local.html" 
+    title: "楽天トラベル - 周辺エリア 空室・宿泊情報", 
+    uri: "https://travel.rakuten.co.jp/yado/ehime/市内.html" 
   },
   {
-    title: "Yahoo!トラベル - 主要駅・中心商店街周辺の格安プラン",
+    title: "Yahoo!トラベル - 市内周辺の格安プラン",
     uri: "https://travel.yahoo.co.jp/landmark/101370/"
   }
 ];
@@ -194,29 +194,29 @@ if (process.env.GEMINI_API_KEY) {
 
 // Target Hotel Details
 const TARGET_HOTEL = {
-  name: "サンプルホテル (Sample Hotel)",
-  address: "A市中心部",
+  name: "当ホテル",
+  address: "（住所省略）",
   basePrice: 10000, // Japanese Yen standard room rate
 };
 
-// Major Event List in Sample City (repeating annually / set on representative months)
-const LOCAL_EVENTS: LocalEvent[] = [
+// Major Local Event List (repeating annually / set on representative months)
+const 市内_EVENTS: 市内Event[] = [
   {
     id: "ev_1",
-    title: "市民マラソン大会 (City Marathon)",
+    title: "地域マラソン大会 (City Marathon)",
     date: "2026-02-08", // Next in Feb 2026
     category: "sports",
-    description: "約1万人のランナーが全国からA市に集結する一大スポーツイベント。周辺ホテルは早期から満室になります。",
+    description: "約1万人のランナーが全国から市内に集結する一大スポーツイベント。周辺ホテルは早期から満室になります。",
     impactLevel: "high",
     impactPercentage: 45,
     location: "市役所前・中央公園ほか"
   },
   {
     id: "ev_2",
-    title: "温泉まつり (Onsen Festival)",
+    title: "地域温泉まつり",
     date: "2026-03-19",
     category: "festival",
-    description: "湯祈祷や神輿、餅まきなどが行われる春の呼声。温泉街周辺およびA市内の宿泊需要が大幅に増加します。",
+    description: "湯祈祷や神輿、餅まきなどが行われる春の呼声。温泉街周辺および市内内の宿泊需要が大幅に増加します。",
     impactLevel: "medium",
     impactPercentage: 20,
     location: "温泉周辺"
@@ -239,7 +239,7 @@ const LOCAL_EVENTS: LocalEvent[] = [
     description: "夏の風物詩。無病息災を祈る伝統祭礼。中心商店街からお城下にかけて地域住民や観光客で賑わいます。",
     impactLevel: "medium",
     impactPercentage: 22,
-    location: "A市街地・各神社"
+    location: "市内街地・各神社"
   },
   {
     id: "ev_7",
@@ -269,7 +269,7 @@ const LOCAL_EVENTS: LocalEvent[] = [
     description: "お盆休みに伴う全国的な帰省ラッシュおよび地方観光旅行需要。満室傾向が強力に継続します。",
     impactLevel: "high",
     impactPercentage: 40,
-    location: "A市全域"
+    location: "市内全域"
   },
   {
     id: "ev_10",
@@ -279,7 +279,7 @@ const LOCAL_EVENTS: LocalEvent[] = [
     description: "秋の3連休行楽シーズン。心地よい季節変動に伴い中高齢者やファミリー層のA市旅行需要が高まります。",
     impactLevel: "medium",
     impactPercentage: 25,
-    location: "A市内・温泉街"
+    location: "市内内・温泉街"
   },
   {
     id: "ev_11",
@@ -341,7 +341,7 @@ function calculateCompetitorPricesForDate(dateStr: string): Competitor[] {
 
   // Check if any major event occurs on or near this date (within 2 days)
   let eventFactor = 0.0;
-  LOCAL_EVENTS.forEach((ev) => {
+  市内_EVENTS.forEach((ev) => {
     const evDate = new Date(ev.date);
     const diffTime = Math.abs(date.getTime() - evDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -417,7 +417,7 @@ function calculateOptimizedPricing(
   // 4. Calendar event impact
   let eventImpact = 0;
   let eventTitles: string[] = [];
-  LOCAL_EVENTS.forEach((ev) => {
+  市内_EVENTS.forEach((ev) => {
     const evDate = new Date(ev.date);
     const diffTime = Math.abs(date.getTime() - evDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -476,7 +476,7 @@ function calculateOptimizedPricing(
     reason = `周辺競合相場乖離率（＋${competitorAvgDeviation}%）を基本データに適用した将来レベニュー計算。現在の推奨価格は市場調和的であり、客室収益率を最大化します。`;
   }
 
-  // Simulated regional occupancy rate around Okaido and Castle area
+  // Simulated regional occupancy rate around Okaido and 市内 Castle area
   let marketOccupancyRate = 48;
   if (eventImpact > 0) {
     marketOccupancyRate = 95;
@@ -504,7 +504,7 @@ function calculateOptimizedPricing(
 }
 
 // Create an API route to request key information
-app.get("/api/local-constants", async (req, res) => {
+app.get("/api/市内-constants", async (req, res) => {
   // Automatically trigger a background search if a new day has started in JST
   await checkAndAutoTriggerDailyResearch();
 
@@ -519,7 +519,7 @@ app.get("/api/local-constants", async (req, res) => {
         liveConfidence: live ? live.confidence : undefined
       };
     }),
-    events: LOCAL_EVENTS,
+    events: 市内_EVENTS,
     livePricesLastUpdated,
     lastUsedSearchSources
   });
@@ -530,7 +530,7 @@ async function runLivePricesResearchInternal() {
   }
 
   try {
-    const prompt = `Search the web for the typical 1-night stay room rate (in Japanese Yen) for a standard room for 1 adult around the current period at the following accommodations in Sample City City, Sample Region.
+    const prompt = `Search the web for the typical 1-night stay room rate (in Japanese Yen) for a standard room for 1 adult around the current period at the following accommodations in 市内 City, Sample Region.
 Since some of these properties are specialty lodgings, condos, or guesthouses, they might not be listed on standard big hotel OTA portals like Rakuten or Jalan. Therefore, search broadly across multiple portals (including Rakuten, Jalan, Yahoo Travel, Booking.com, Agoda, TripAdvisor, or official websites):
 1. 競合ホテルA
 2. 競合ホテルB
@@ -541,9 +541,9 @@ Since some of these properties are specialty lodgings, condos, or guesthouses, t
 7. 競合ホテルG
 8. 競合ホテルH
 9. 競合ホテルI / 競合ホテルI別館
-10. 競合ホテルJ
+10. 競合ホテルF
 11. 競合ホテルK
-12. 競合ホテルL
+12. 競合ホテルH
 
 Provide the typical rate you found or estimate drawing from current local market.
 Return ONLY a valid JSON array of objects representing hotel prices with exactly the following keys: "id" ("comp_1" through "comp_12"), "price" (number, integer price in JPY, e.g. 5200), "sourceMatched" (string naming where the price was found, e.g., "じゃらん", "楽天トラベル", "Booking.com", "公式サイト" etc.), and "confidence" (string either "high" if found real actual price, or "estimated" if approximate).
@@ -589,7 +589,7 @@ Format:
     if (sourcesList.length === 0) {
       sourcesList.push(
         { title: "じゃらんnet (主要駅周辺)", uri: "https://www.jalan.net/380000/rg_380200/" },
-        { title: "楽天トラベル (A市・温泉街)", uri: "https://travel.rakuten.co.jp/yado/ehime/local.html" }
+        { title: "楽天トラベル (A市・温泉街)", uri: "https://travel.rakuten.co.jp/yado/ehime/市内.html" }
       );
     }
 
@@ -701,7 +701,7 @@ app.post("/api/hotel-analysis/date", async (req, res) => {
     const competitors = calculateCompetitorPricesForDate(date);
     const { recommendation, marketOccupancyRate } = calculateOptimizedPricing(date, competitors, Number(occupancy));
 
-    const aiAdvice = `A市内の直近トレンドに合わせた提案です。A市中心商店街〜中央公園周辺の市場平均価格は ¥${recommendation.factors.competitorAverage.toLocaleString()} 近辺を推移中。週末並びにA県内イベント情報を踏まえ、客室設定を ¥${recommendation.recommendedPrice.toLocaleString()} (${recommendation.percentageChange >= 0 ? '+' : ''}${recommendation.percentageChange}%) に補正することで、高単価かつ確実な宿泊予約維持が期待できます。`;
+    const aiAdvice = `市内内の直近トレンドに合わせた提案です。A市中心商店街〜中央公園周辺の市場平均価格は ¥${recommendation.factors.competitorAverage.toLocaleString()} 近辺を推移中。週末並びにA県内イベント情報を踏まえ、客室設定を ¥${recommendation.recommendedPrice.toLocaleString()} (${recommendation.percentageChange >= 0 ? '+' : ''}${recommendation.percentageChange}%) に補正することで、高単価かつ確実な宿泊予約維持が期待できます。`;
 
     const responseData: DateAnalysisResponse = {
       date,
@@ -743,7 +743,7 @@ app.post("/api/hotel-analysis/forecast", async (req, res) => {
       try {
         console.log(`[Forecast Gemini Engine] Querying Gemini for peak event & holiday multiplier trends starting from ${startDate}...`);
         const prompt = `あなたはホテルのレベニューマネジメント及び宿泊価格トレンド分析スペシャリストです。
-起点日 ${startDate} から90日間の将来期間において、A県A市の中心商店街エリア周辺の12の競合ホテルの宿泊価格の動きを予測・査定してください。
+起点日 ${startDate} から90日間の将来期間において、A県市内の中心商店街エリア周辺の12の競合ホテルの宿泊価格の動きを予測・査定してください。
 
 特に、お盆休み周辺（8月13日〜8月16日付近）は帰省・観光需要が極めて大きいため通常より高騰（例えば約1.45倍〜1.65倍）します。また、港まつり 花火大会（8月第1土曜候補）、夏の市民おどり大会（8月11日〜8月14日）、主要な3連休やイベントなど、競合宿が値上げをかけていく特定の日付をお調べ、または推論してください。
 
@@ -792,7 +792,7 @@ app.post("/api/hotel-analysis/forecast", async (req, res) => {
       else if (m === 7 && d >= 1 && d <= 3) {
         mult = 1.55;
       }
-      // Sample City matsuri dancing event (Aug 11 - Aug 14)
+      // 市内 matsuri dancing event (Aug 11 - Aug 14)
       else if (m === 7 && d >= 11 && d <= 14) {
         mult = 1.50;
       }
@@ -830,7 +830,7 @@ app.post("/api/hotel-analysis/forecast", async (req, res) => {
       const { recommendation } = calculateOptimizedPricing(targetDateStr, competitors, Number(occupancy));
 
       // Check current day events
-      const dayEvents = LOCAL_EVENTS.filter(e => e.date === targetDateStr).map(e => e.title);
+      const dayEvents = 市内_EVENTS.filter(e => e.date === targetDateStr).map(e => e.title);
       dayEvents.forEach(e => {
         if (!detectedEvents.includes(e)) {
           detectedEvents.push(e);
@@ -888,7 +888,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`A市ホテル周辺価格最適化サーバー稼働中: http://localhost:${PORT}`);
+    console.log(`市内ホテル周辺価格最適化サーバー稼働中: http://localhost:${PORT}`);
   });
 }
 
