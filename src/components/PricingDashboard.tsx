@@ -95,11 +95,11 @@ export default function PricingDashboard({
     setCrawlLogs([]);
 
     const logSteps = [
-      "主要駅前・中心商店街エリアのポータルサーバーに接続確立中...",
-      "ネット上から「競合ホテルA」「競合ホテルC」などの最新をチェックポロジー算出中...",
+      "市内エリアのポータルサーバーに接続確立中...",
+      "周辺競合ホテルの最新料金をチェックポロジー算出中...",
       "各 OTA サイトにおける当宿周辺競合価格の直近プランを取得...",
-      "A市歳時記「観月会」「市民マラソン大会」「港湾花火」の需要強度の日程ブレンド査定中...",
-      "A市場適応価格・需要推論エンジン（JST開発者同期）との安全結合に成功..."
+      "地域イベントの需要強度の日程ブレンド査定中...",
+      "市場適応価格・需要推論エンジン（JST開発者同期）との安全結合に成功..."
     ];
 
     const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
@@ -350,7 +350,7 @@ export default function PricingDashboard({
 
                     <div className="flex justify-between items-center text-xs pb-1 border-b border-[#F4F4F5]">
                       <span className="text-[#52525B] flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-[#A1A1AA]" /> A市地域歳時記イベント
+                        <Calendar className="w-3 h-3 text-[#A1A1AA]" /> 地域イベント
                       </span>
                       <span className="font-mono text-[#18181B] font-bold">
                         +{recommendation.factors.eventImpact}%
@@ -395,7 +395,7 @@ export default function PricingDashboard({
             <div className="flex items-start gap-2 text-[10px] text-[#71717A]">
               <Info className="w-3.5 h-3.5 flex-shrink-0 text-[#A1A1AA]" />
               <p className="leading-snug">
-                本仕様は「サンプルホテル」周辺の長期滞在可能・ウィークリー・コンドミニアム型ホテルのじゃらん・楽天における公開相場を基準にしたレベニュー算出モデルです。
+                本仕様は周辺の競合ホテルのじゃらん・楽天における公開相場を基準にしたレベニュー算出モデルです。
               </p>
             </div>
           </div>
