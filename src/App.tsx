@@ -38,34 +38,34 @@ export default function App() {
       })
       .catch(err => {
         console.error("Error fetching constants:", err);
-        // Fallback robust Sample City Event List for resilience
+        // Fallback sample event list for resilience
         setAllEvents([
           {
             id: "ev_1",
-            title: "市民マラソン大会 (City Marathon)",
+            title: "市民マラソン大会",
             date: "2026-02-08",
             category: "sports",
-            description: "約1万人のランナーが全国からA市に集結する一大スポーツイベント。周辺ホテルは早期から満室になります。",
+            description: "約1万人のランナーが全国から集結する一大スポーツイベント。周辺ホテルは早期から満室になります。",
             impactLevel: "high",
             impactPercentage: 45,
             location: "市役所前・中央公園ほか"
           },
           {
             id: "ev_2",
-            title: "温泉まつり (Onsen Festival)",
+            title: "温泉まつり",
             date: "2026-03-19",
             category: "festival",
-            description: "湯祈祷や神輿、餅まきなどが行われる春の呼声。温泉街周辺およびA市内の宿泊需要が大幅に増加します。",
+            description: "湯祈祷や神輿、餅まきなどが行われる春の風物詩。温泉街周辺および市内の宿泊需要が大幅に増加します。",
             impactLevel: "medium",
             impactPercentage: 20,
-            location: "温泉周辺"
+            location: "温泉街周辺"
           },
           {
             id: "ev_3",
             title: "春まつり（お城まつり）",
             date: "2026-04-04",
             category: "festival",
-            description: "城跡周辺で行われる大名武者行列など、春の桜シーズンと合わせた観光のピーク期。",
+            description: "城跡周辺で行われる武者行列など、春の桜シーズンと合わせた観光のピーク期。",
             impactLevel: "high",
             impactPercentage: 25,
             location: "城跡・中央公園周辺"
@@ -78,37 +78,37 @@ export default function App() {
             description: "大型連休による全国的なレジャー観光旅行増。家族連れやカップルの長期滞在が並びます。",
             impactLevel: "high",
             impactPercentage: 35,
-            location: "A市内全域"
+            location: "市内全域"
           },
           {
             id: "ev_5",
             title: "港まつり 花火大会",
             date: "2026-08-01",
             category: "festival",
-            description: "地方最大級の1万発超が打ち上がる花火大会。県内外から数十万人が来客し、宿泊需要は年間最高レベルに。",
+            description: "1万発超が打ち上がる大規模花火大会。県内外から数十万人が来客し、宿泊需要は年間最高レベルに。",
             impactLevel: "high",
             impactPercentage: 55,
             location: "港湾ふ頭エリア"
           },
           {
             id: "ev_6",
-            title: "夏の市民おどり大会 (郷土芸能のおどり)",
+            title: "夏の市民おどり大会",
             date: "2026-08-12",
             category: "festival",
-            description: "A市名物、郷土芸能のおどりが繰り広げられる3日間の大熱演の夏祭り。市内メイン通りが歩行者天国になります。",
+            description: "郷土芸能のおどりが繰り広げられる3日間の夏祭り。市内メイン通りが歩行者天国になります。",
             impactLevel: "high",
             impactPercentage: 30,
-            location: "中心商店街・中心街・中央公園地区"
+            location: "中心商店街・中央公園地区"
           },
           {
             id: "ev_7",
-            title: "秋祭り (鉢合わせ・神輿神事)",
+            title: "秋祭り (神輿神事)",
             date: "2026-10-07",
             category: "festival",
-            description: "豪快な神輿の「鉢合わせ」が全国的にも有名な秋の大祭。宵宮・本宮で地域全体が沸き立ちます。",
+            description: "豪快な神輿のぶつかり合いが有名な秋の大祭。宵宮・本宮で地域全体が沸き立ちます。",
             impactLevel: "medium",
             impactPercentage: 20,
-            location: "市内神社・市内神社"
+            location: "市内主要神社"
           },
           {
             id: "ev_8",
@@ -118,7 +118,7 @@ export default function App() {
             description: "帰省客や年末年始観光客による高価格帯での満室想定。",
             impactLevel: "high",
             impactPercentage: 40,
-            location: "A市周辺"
+            location: "市内周辺"
           }
         ]);
       });
@@ -225,14 +225,14 @@ export default function App() {
       <footer className="bg-white border-t border-[#E4E4E7] py-6 text-center text-[11px] text-[#71717A]">
         <div className="max-w-7xl mx-auto px-4 space-y-2">
           <p className="font-medium text-[#27272A]" id="app-footer-brand">
-            A市ホテル価格最適化システム — サンプルホテル（A市中心部）専用システム
+            ホテル価格最適化システム — デモ用サンプルデータで動作しています
           </p>
           <div className="flex justify-center gap-4 text-[#A1A1AA]">
             <span>基準指標値: 通常(平時)時からの変動・乖離率(%)</span>
             <span>|</span>
-            <span>周辺調査範囲: A市内 主要ウィークリー・マンスリー・アパートメントホテル10軒</span>
+            <span>周辺調査範囲: 市内 主要ウィークリー・マンスリー・アパートメントホテル10軒</span>
             <span>|</span>
-            <span>データ集約: じゃらん / 楽天トラベル</span>
+            <span>データ集約: 各種宿泊予約サイト</span>
           </div>
           <p className="pt-2 text-[10px] text-[#A1A1AA] font-mono">
             &copy; 2026 Sample Hotel. System Version 2.4.1 | Developed with Google AI Studio.

@@ -28,10 +28,10 @@ export default function ForecastSection({ startDate, occupancy, onSelectDate }: 
     setCrawlLogs([]);
 
     const logSteps = [
-      "主要駅前・中心商店街エリアのポータルサーバーに接続確立中...",
-      "ネット上から周辺名産ホテルの最新相場を読み取り中...",
-      "A市歳時記イベント需要ブレンド査定中...",
-      "A市場適応価格・需要推論エンジンとの結合に成功..."
+      "主要駅前・中心部エリアのポータルサーバーに接続確立中...",
+      "ネット上から周辺ホテルの最新相場を読み取り中...",
+      "地域歳時記イベント需要ブレンド査定中...",
+      "市場適応価格・需要推論エンジンとの結合に成功..."
     ];
 
     const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
@@ -226,7 +226,7 @@ export default function ForecastSection({ startDate, occupancy, onSelectDate }: 
             ３ヶ月先（将来90日間）の客室価格・変動％リアルタイム予測
           </h3>
           <p className="text-xs text-[#71717A] mt-0.5">
-            じゃらん・楽天トラベル将来公開データ、週次周期、およびA市の歳時記イベントを統合したインテリジェント収益シミュレーション
+            宿泊予約サイトの将来公開データ、週次周期、および地域の歳時記イベントを統合したインテリジェント収益シミュレーション
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -276,7 +276,7 @@ export default function ForecastSection({ startDate, occupancy, onSelectDate }: 
         <div className="py-24 flex flex-col items-center justify-center space-y-3">
           <Loader2 className="w-8 h-8 animate-spin text-[#71717A]" />
           <span className="text-xs text-[#71717A] tracking-wider text-center">３ヶ月先（90日間）の周辺宿泊価格トレンドを分析・演算中...</span>
-          <span className="text-[10px] text-[#A1A1AA] text-center">じゃらん・楽天の未来掲載価格のクローリング安全検証実施中</span>
+          <span className="text-[10px] text-[#A1A1AA] text-center">宿泊予約サイトの未来掲載価格のクローリング安全検証実施中</span>
         </div>
       ) : forecast.length > 0 ? (
         <div className="space-y-6">
@@ -508,7 +508,7 @@ export default function ForecastSection({ startDate, occupancy, onSelectDate }: 
       <div className="border-t border-[#E4E4E7] pt-3 flex items-start gap-2 text-[10px] text-[#71717A]">
         <Info className="w-4 h-4 flex-shrink-0 text-[#A1A1AA]" />
         <p className="leading-snug">
-          ※ 規約遵守ステートメント：本システムにおける競合価格データは、じゃらん・楽天トラベル等で公衆に無料提供されている公開空室・販売条件を一定間隔内で集約した仮想動向シミュレータであり、各予約サイトの利用規約およびデータ取得方針（完全無料のパブリック指標活用）に100％準拠して設計されています。
+          ※ 規約遵守ステートメント：本システムにおける競合価格データは、各種宿泊予約サイトで公衆に無料提供されている公開空室・販売条件を一定間隔内で集約した仮想動向シミュレータであり、各予約サイトの利用規約およびデータ取得方針（完全無料のパブリック指標活用）に100％準拠して設計されています。
         </p>
       </div>
 

@@ -1,5 +1,5 @@
 /**
- * Types for Sample City Hotel Competitor Pricing Dashboard
+ * Types for the Hotel Competitor Pricing Dashboard
  * Refined specifically for 2-column core focus: 
  * 1. Competitor Normal Price Deviation & "Room to Increase" Signals
  * 2. 3-Month Future Pricing Variance % Forecast
